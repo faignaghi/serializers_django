@@ -26,17 +26,20 @@ class PathSerializer(serializers.ModelSerializer):
         fields = ["id", "path_name"]
 
 class StudentSerializer(serializers.ModelSerializer):
-    full_name=serializers.SerializerMethodField()
-    number_name=serializers.SerializerMethodField()
+    # full_name=serializers.SerializerMethodField()
+    # number_name=serializers.SerializerMethodField()
     
     
-    def get_full_name(self,obj):
-        return f'{obj.first_name} {obj.last_name}'
-    def get_number_name(self,obj):
-        return f'{obj.number} {obj.first_name}'
+    # def get_full_name(self,obj):
+    #     return f'{obj.first_name} {obj.last_name}'
+    # def get_number_name(self,obj):
+    #     return f'{obj.number} {obj.first_name}'
+    path=serializers.StringRelatedField()
+    path_id=serializers.IntegerField()
+    
     class Meta:
         model = Student
-        fields = ["id", "number_name", "full_name", "first_name", "last_name", "number"]
+        fields = ["id", "path_id", "path", "first_name", "last_name", "number"]
     #   fields = '__all__'          # bütütn field'leri getirer
     #   exclude = ['number']        # number'den basqa herseyi getirer
     
