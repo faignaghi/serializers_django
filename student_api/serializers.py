@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Student
+from .models import Student,Path
 
 # # 1.ÜSUL
 
@@ -19,13 +19,26 @@ from .models import Student
 #         return instance
     
 # 2.ÜSUL
+
+class PathSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Path
+        fields = ["id", "path_name"]
+
 class StudentSerializer(serializers.ModelSerializer):
-    full_name = serializers.SerializerMethodField()
+    full_name=serializers.SerializerMethodField()
+    number_name=serializers.SerializerMethodField()
+    
     
     def get_full_name(self,obj):
         return f'{obj.first_name} {obj.last_name}'
+    def get_number_name(self,obj):
+        return f'{obj.number} {obj.first_name}'
     class Meta:
         model = Student
-        fields = ["id", "full_name", "first_name", "last_name", "number"]
+        fields = ["id", "number_name", "full_name", "first_name", "last_name", "number"]
     #   fields = '__all__'          # bütütn field'leri getirer
     #   exclude = ['number']        # number'den basqa herseyi getirer
+    
+    
+    
